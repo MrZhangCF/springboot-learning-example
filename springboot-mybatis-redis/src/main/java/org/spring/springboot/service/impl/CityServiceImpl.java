@@ -7,11 +7,9 @@ import org.spring.springboot.domain.City;
 import org.spring.springboot.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,7 +51,7 @@ public class CityServiceImpl implements CityService {
         City city = cityDao.findById(id);
 
         // 插入缓存
-        operations.set(key, city, 10, TimeUnit.SECONDS);
+        operations.set(key, city, 100, TimeUnit.MINUTES);
         LOGGER.info("CityServiceImpl.findCityById() : 城市插入缓存 >> " + city.toString());
 
         return city;
